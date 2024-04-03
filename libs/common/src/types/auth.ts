@@ -38,6 +38,7 @@ export interface User {
     age: number;
     subscribed: boolean;
     socialMedia: SocialMedia | undefined;
+    token: string;
 }
 
 export interface SocialMedia {

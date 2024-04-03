@@ -45,6 +45,24 @@
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
+    },
+    "blog": {
+      "type": "application",
+      "root": "apps/blog",
+      "entryFile": "main",
+      "sourceRoot": "apps/blog/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/blog/tsconfig.app.json"
+      }
+    },
+    "blog-crud": {
+      "type": "application",
+      "root": "apps/blog-crud",
+      "entryFile": "main",
+      "sourceRoot": "apps/blog-crud/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/blog-crud/tsconfig.app.json"
+      }
     }
   }
 }
