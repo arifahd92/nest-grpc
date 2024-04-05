@@ -1,35 +1,58 @@
 import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
-import { BlogService } from './blog.service';
-import { CreateBlogDto, UpdateBlogDto } from '@app/common';
 
+import { BlogService } from './blog.service';
+import {
+  BlogsServiceControllerMethods,
+  CreateBlogDto,
+  UpdateBlogDto,
+} from '@app/common';
+import { Metadata, MetadataValue, ServerUnaryCall } from '@grpc/grpc-js';
 
 @Controller()
+@BlogsServiceControllerMethods()
 export class BlogController {
-  constructor(private readonly blogService: BlogService) { }
+  constructor(private readonly blogService: BlogService) {}
 
-  @MessagePattern('createBlog')
-  create(@Payload() createBlogDto: CreateBlogDto) {
-    return this.blogService.create(createBlogDto);
+  createBlog(
+    createBlogDto: CreateBlogDto,
+    metadata: Metadata,
+    call: ServerUnaryCall<any, any>,
+  ) {
+    console.log('metadata inside controller');
+    console.log({ metadata });
+    let token: MetadataValue[] | undefined = metadata.get('token');
+    console.log(token[0], 'inside controller');
+    return this.blogService.create(createBlogDto, token[0]);
   }
 
-  @MessagePattern('findAllBlog')
-  findAll() {
-    return this.blogService.findAll();
+  findAllBlogs(data: any, metadata: Metadata, call: ServerUnaryCall<any, any>) {
+    console.log(`inside findAll blogs now metadata`);
+    console.log(metadata);
+    let token: MetadataValue[] | undefined = metadata.get('token');
+    console.log(token[0], 'inside controller');
+
+    return this.blogService.findAll(token[0]);
   }
 
-  @MessagePattern('findOneBlog')
-  findOne(@Payload() id: string) {
-    return this.blogService.findOne(id);
+  findOneBlog(id: string, metadata: Metadata, call: ServerUnaryCall<any, any>) {
+    let token: MetadataValue[] | undefined = metadata.get('token');
+
+    return this.blogService.findOne(id, token[0]);
   }
 
-  @MessagePattern('updateBlog')
-  update(@Payload() updateBlogDto: UpdateBlogDto) {
-    return this.blogService.update(updateBlogDto.id, updateBlogDto);
+  updateBlog(
+    updateBlogDto: UpdateBlogDto,
+    metadata: Metadata,
+    call: ServerUnaryCall<any, any>,
+  ) {
+    let token: MetadataValue[] | undefined = metadata.get('token');
+
+    return this.blogService.update(updateBlogDto.id, updateBlogDto, token[0]);
   }
 
-  @MessagePattern('removeBlog')
-  remove(@Payload() id: string) {
-    return this.blogService.remove(id);
+  removeBlog(id: string, metadata: Metadata, call: ServerUnaryCall<any, any>) {
+    let token: MetadataValue[] | undefined = metadata.get('token');
+
+    return this.blogService.remove(id, token[0]);
   }
 }

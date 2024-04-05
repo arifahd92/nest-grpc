@@ -1,4 +1,5 @@
-import { User } from "../types";
+import { Blog, User } from "../types";
 
 export const userArray: User[] = []
+
 

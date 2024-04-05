@@ -7,4 +7,4 @@ import { BlogModule } from './blog/blog.module';
   controllers: [],
   providers: [],
 })
-export class BlogCrudModule { }
+export class BlogCrudModule {}

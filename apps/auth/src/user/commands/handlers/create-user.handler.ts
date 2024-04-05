@@ -16,10 +16,9 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
 
     async execute(command: CreateUserCommand) {//createUserDto will be here inside command business logic will be implemented here
 
-
+        let token
         console.log(command);// commands wrap data inside an object and name of key inside which data will be value is 
         let id = randomUUID()
-        const token = this.jwtService.sign({ id })
         const user: User = {
             ...command.createUserDto,
             subscribed: false,
@@ -27,6 +26,8 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
             id,
             token
         };
+        token = this.jwtService.sign({ id, username: user.username })
+        user.token = token
         userArray.push(user)
         console.log({ token })
         // console.log(userArray)
@@ -35,8 +36,7 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
         const metadata = new Metadata();
         metadata.set('token', token);
 
-        // Set metadata in response
-        (user as any).metadata = metadata;
+
 
         console.log("user, ", user)
         return user;

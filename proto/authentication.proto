@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package authentication;
+
+service AuthenticationsService {
+    rpc signInUser (SignInDto) returns (SignInMessage) {}
+    rpc verifyUser (Token) returns (UserInfo) {}
+
+  
+  }
+  message SignInDto{
+  string  useremail=1;
+   string password=2;
+
+  }
+
+  message SignInMessage{
+    string message=1;
+    string accessToken=2;
+  }
+
+  message Token{
+    string accessToken=1;
+   
+  }
+  message UserInfo{
+    string userId=1;
+    string userEmail=2;
+    }

@@ -3,16 +3,18 @@ syntax = "proto3";
 package blog;
 
 service BlogsService {
-  rpc CreateBlog (CreateBlogDto) returns (Blog) {}
+  rpc CreateBlog (CreateBlogDto) returns (blogResponse) {}
   rpc FindAllBlogs (EmptyBlog) returns (Blogs) {}
   rpc FindOneBlog (FindOneBlogDto) returns (Blog) {}
   rpc UpdateBlog (UpdateBlogDto) returns (Blog) {}
-  rpc RemoveBlog (FindOneBlogDto) returns (Blog) {}
+  rpc RemoveBlog (FindOneBlogDto) returns (Success) {}
 
 }
 
 
-
+message Success{
+  string message=1;
+}
 message UpdateBlogDto {
   string id = 1;
   string content = 2;
@@ -42,5 +44,12 @@ message Blog {
   string author = 3;
   string userId = 4;
  
+}
+
+
+message blogResponse{
+  string message=1;
+  string error=2;
+  Blog Blog=3;
 }
 

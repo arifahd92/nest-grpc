@@ -61,7 +61,37 @@
       "entryFile": "main",
       "sourceRoot": "apps/blog-crud/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/blog-crud/tsconfig.app.json"
+        "tsConfigPath": "apps/blog-crud/tsconfig.app.json",
+        "assets": [
+          "proto/*.proto"
+        ],
+        "watchAssets": true
+      }
+    },
+    "authentication": {
+      "type": "application",
+      "root": "apps/authentication",
+      "entryFile": "main",
+      "sourceRoot": "apps/authentication/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/authentication/tsconfig.app.json",
+        "assets": [
+          "proto/*.proto"
+        ],
+        "watchAssets": true
+      }
+    },
+    "authentication-two": {
+      "type": "application",
+      "root": "apps/authentication-two",
+      "entryFile": "main",
+      "sourceRoot": "apps/authentication-two/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/authentication-two/tsconfig.app.json",
+        "assets": [
+          "proto/*.proto"
+        ],
+        "watchAssets": true
       }
     }
   }

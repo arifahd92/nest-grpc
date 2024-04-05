@@ -10,9 +10,9 @@ import { QueryHandlers } from './queries/handlers';
 @Module({
   imports: [
     CqrsModule,
-    ConfigModule.forRoot(), // Import ConfigModule to provide ConfigService
+    ConfigModule.forRoot(), 
     JwtModule.registerAsync({
-      imports: [ConfigModule], // Import ConfigModule here
+      imports: [ConfigModule], 
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'),

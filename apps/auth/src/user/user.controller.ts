@@ -8,10 +8,11 @@ import {
   FindOneUserDto,
   PaginationDto,
   User,
+
 } from '@app/common';
 import { Observable } from 'rxjs';
 import { UsersService } from './user.service';
-import { Metadata } from '@grpc/grpc-js';
+import { Metadata, ServerUnaryCall } from '@grpc/grpc-js';
 // import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 @Controller()
@@ -22,7 +23,7 @@ export class UsersController implements UsersServiceController {
   ) { }
 
 
-  createUser(createUserDto: CreateUserDto,): any {
+  createUser(createUserDto: CreateUserDto): Promise<User> {
 
     // console.log(metadata.get('token'))
     return this.usersService.create(createUserDto);
